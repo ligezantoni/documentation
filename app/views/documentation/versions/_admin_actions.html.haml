@@ -1,0 +1,11 @@
+- canEdit = authorizer.can_edit_version?(version)
+- canDelete = authorizer.can_delete_version?(version)
+
+- if canEdit || canDelete
+  %p.adminActions
+
+    - if canEdit
+      = link_to t('.edit'), edit_version_path(version), :class => 'button edit'
+
+    - if canDelete
+      = link_to t('.delete'), delete_version_path(version), :class => 'button delete', :method => :delete, :data => {:confirm => t('.confirm_delete')}

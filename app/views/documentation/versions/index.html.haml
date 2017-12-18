@@ -1,0 +1,15 @@
+- canAdd = authorizer.can_add_version?
+
+%section.versionsList
+  %h1= t('.title')
+  %table
+    %thead
+      %tr
+        %td= t('.ordinal')
+        %td
+    %tbody
+      - @versions.each do |version|
+        %tr
+          %td= link_to version.ordinal, root_path(version_ordinal: version.ordinal)
+          %td= render 'admin_actions', version: version
+  = render 'admin_buttons'

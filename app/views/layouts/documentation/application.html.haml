@@ -9,11 +9,14 @@
     = yield :head
   %body
     = render 'layouts/documentation/header'
-    
     %nav.pages
       .inner
-        = render 'layouts/documentation/search'
-        = documentation_navigation_tree_for(@page)
+        - if @version.present? && request['controller'] != 'documentation/versions'
+          = render 'layouts/documentation/search'
+          = documentation_navigation_tree_for(@version, @page)
+
+          = render 'layouts/documentation/version_form'
+          -#= render 'layouts/documentation/admin_buttons'
     %section.content
       .inner  
         = flash_messages

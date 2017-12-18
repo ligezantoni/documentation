@@ -12,7 +12,7 @@ module Documentation
 
       if request.patch?
         if @page.update_attributes(safe_params)
-          redirect_to page_path(@page.full_permalink), :notice => "Page has been saved successfully."
+          redirect_to page_path(@page.full_permalink, version_ordinal: @version.ordinal), :notice => t('.notice')
           return
         end
       end
@@ -23,7 +23,7 @@ module Documentation
       authorizer.check! :add_page, @page
 
       parent = @page
-      @page = Page.new(:title => "Untitled Page")
+      @page = Page.new(:title => "Untitled Page", :version_id => @version.id)
       if @page.parent = parent
         @page.parents = parent.breadcrumb
       end
@@ -31,7 +31,7 @@ module Documentation
       if request.post?
         @page.attributes = safe_params
         if @page.save
-          redirect_to page_path(@page.full_permalink), :notice => "Page created successfully"
+          redirect_to page_path(@page.full_permalink, version_ordinal: @version.ordinal), :notice => t('.notice')
           return
         end
       end
@@ -41,7 +41,7 @@ module Documentation
     def destroy
       authorizer.check! :delete_page, @page
       @page.destroy
-      redirect_to @page.parent ? page_path(@page.parent.full_permalink) : root_path, :notice => "Page has been removed successfully."
+      redirect_to @page.parent ? page_path(@page.parent.full_permalink, version_ordinal: @version.ordinal) : root_path, :notice => t('.notice')
     end
 
     def screenshot
@@ -61,7 +61,7 @@ module Documentation
 
     def positioning
       authorizer.check! :reposition_page, @page
-      @pages = @page ? @page.children : Page.roots
+      @pages = @page ? @page.children : Page.roots.in_version(@version.id)
       if request.post?
         Page.reorder(@page, params[:order])
         render :json => {:status => 'ok'}
@@ -70,14 +70,14 @@ module Documentation
 
     def search
       authorizer.check! :search
-      @result = Documentation::Page.search(params[:query], :page => params[:page].blank? ? 1 : params[:page].to_i)
+      @result = Documentation::Page.in_version(@version.id).search(params[:query], :page => params[:page].blank? ? 1 : params[:page].to_i, per_page: 2)
     end
 
     private
 
     def find_page
       if params[:path]
-        @page = Page.find_from_path(params[:path])
+        @page = Page.find_from_path(@version.id, params[:path])
       end
     end
 

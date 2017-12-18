@@ -1,0 +1,6 @@
+- canAdd = authorizer.can_add_version?
+
+- if canAdd
+  %p.adminButtons
+    - if canAdd
+      = link_to t('.new'), new_version_path, :class => 'button new'

@@ -7,6 +7,6 @@
   - else
     %h1= t('.title', :query => params[:query])
     %p.searchSummary= documentation_search_summary(@result)
-    = documentation_search_results(@result)        
-    %p.pagination= documentation_search_pagination(@result, :link_class => 'button')
+    = documentation_search_results(@version, @result)
+    %p.pagination= documentation_search_pagination(@version, @result, :link_class => 'button')
     

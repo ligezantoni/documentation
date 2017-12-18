@@ -24,16 +24,10 @@ header {
   top:0;
   width:100%;
   h1 {
-    margin:10px 0 0 15px;
+    margin:14px 0 0 15px;
     float:left;
-    a {
-      display:block;
-      background:image-url('documentation/logo-white.svg') no-repeat;
-      background-size:20px;
-      width:20px;
-      height:20px;
-      text-indent:-40000px;
-    }
+    a { color:#97a4b7; text-decoration:none; }
+    a:hover { color:#fff;}
   }
   p.back {
     float:right;
@@ -319,4 +313,41 @@ p.noSearchResults {
   background:image-url('documentation/unhappy.svg') no-repeat center top;
   background-size:170px;
   padding-top:200px;
+}
+
+section.versionsList {
+  margin:25px 35px 35px 35px;
+
+  h1 {
+    font-size:1.6em;
+    font-weight:300;
+    margin:20px 0;
+    border-bottom:1px solid #aecdda;
+    padding-bottom:2px; color:#35A4D4;
+  }
+
+  table {
+    margin: 20px auto;
+    border-bottom: 1px dashed #ddd;
+    width: 90%;
+    th, td {
+      padding: 15px;
+      border-top: 1px dashed #ddd;
+    }
+  }
+
+  p.adminActions {
+    text-align: right;
+  }
+
+  p.adminButtons {
+    border-top:1px dashed #ddd;
+    padding:15px 0;
+    margin-top:30px;
+    text-align:right;
+  }
+}
+
+.clearfix {
+  clear: both;
 }

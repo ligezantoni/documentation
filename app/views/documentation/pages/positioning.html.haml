@@ -1,14 +1,14 @@
 - if @page
   - @page_title = @page.breadcrumb.reverse.map(&:title).join(" - ")
-  = documentation_breadcrumb_for @page
+  = documentation_breadcrumb_for @version, @page
 - else
   - @page_title = t('.reorder_root_pages_title')
-  = documentation_breadcrumb_for nil
+  = documentation_breadcrumb_for @version, nil
 
 %section.page
   %h1= @page ? @page.title : t('.reorder_root_pages_title')
 
-  = form_tag page_positioning_path(@page.try(:full_permalink)), :class => 'reordering' do 
+  = form_tag page_positioning_path(@page.try(:full_permalink), version_ordinal: @version.ordinal), :class => 'reordering' do
     %ul
       - for child in @pages
         %li
@@ -17,6 +17,6 @@
   
   %p.adminButtons
     - if @page
-      = link_to t('.back_to_page'), page_path(@page.full_permalink), :class => 'button edit'
+      = link_to t('.back_to_page'), page_path(@page.full_permalink, version_ordinal: @version.ordinal), :class => 'button edit'
     - else
       = link_to t('.back_to_homepage'), root_path, :class => 'button edit'

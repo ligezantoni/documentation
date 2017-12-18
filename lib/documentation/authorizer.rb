@@ -37,6 +37,18 @@ module Documentation
       true
     end
 
+    def can_add_version?
+      true
+    end
+
+    def can_edit_version?(version)
+      true
+    end
+
+    def can_delete_version?(version)
+      true
+    end
+
     def check!(action, object = :none)
       action_method_name = "can_#{action}?"
       if self.respond_to?(action_method_name)

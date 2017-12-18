@@ -37,3 +37,26 @@ form.pageForm {
 		text-align:right;
 	}
 }
+
+p.versionForm {
+  border-top: 1px dashed #ddd;
+  padding: 15px;
+  margin-top: 15px;
+
+  select {
+    width: 100%;
+    background: white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-size: 14px;
+    border: 2px solid #bbc5da;
+    border-radius: 4px;
+    padding: 6px 6px 6px 6px;
+    margin-top: 5px;
+  }
+
+  .adminButtons {
+    a {
+      margin: 10px 0;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 - @page_title = @page.breadcrumb.reverse.map(&:title).join(" - ")
 
-= documentation_breadcrumb_for @page
+= documentation_breadcrumb_for @version, @page
 
 %section.page
   - if @page.preview_path
@@ -9,6 +9,6 @@
   %h1= @page.title
   %p.updated= t('.last_updated', :timestamp => @page.updated_at.to_s(:long))
   .documentationMarkdown
-    ~ preserve(documentation_content_for(@page))
+    ~ preserve(documentation_content_for(@version, @page))
 
   = render 'admin_buttons'

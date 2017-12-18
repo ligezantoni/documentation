@@ -76,3 +76,10 @@ $ ->
               console.log xhr.responseText
 
           false
+  $('#version-change').on 'change', ->
+    path = window.location.pathname
+    path_elements = path.split('/')
+    path_elements[3] = $(this).val()
+    path = path_elements.join('/')
+    if path
+      window.location.pathname = path

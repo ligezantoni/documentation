@@ -1,0 +1,9 @@
+- canAdd = authorizer.can_add_version?
+
+%p.versionForm
+  = label_tag 'versions', t('.labels.change_version')
+  = select_tag 'versions', documentation_version_options(@version.ordinal), id: 'version-change'
+
+  - if canAdd
+    %span.adminButtons
+      = link_to t('.manage_versions'), versions_path, :class => 'button edit'

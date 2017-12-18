@@ -18,8 +18,11 @@ module Documentation
     :authorizer => Documentation::Authorizer,
 
     # The searcher to use
-    :searcher => Documentation::Searchers::Simple.new
-  }
+    :searcher => Documentation::Searchers::Simple.new,
+
+    # Application title
+    :app_title => 'Documentation'
+}
 
   #
   # Return configuration options

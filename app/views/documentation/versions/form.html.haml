@@ -1,0 +1,13 @@
+%section.content.edit-article
+  -#= documentation_breadcrumb_for @version, @page
+  = form_for @version, :url => @version.new_record? ? new_version_path : edit_version_path(@version), :html => {:class => 'pageForm'} do |f|
+    = error_messages_for @version
+    %p.title= f.text_field :ordinal, :placeholder => t('.ordinal_placeholder')
+
+    - if @version.new_record?
+      %dl
+        %dt= f.label :based_on
+        %dd= f.select :based_on, Documentation::Version.all.collect { |v| [v.ordinal, v.id]}, include_blank: true #, :placeholder => t('.based_on_placeholder')
+
+    %p.submit
+      = f.submit t('.save'), :class => 'button'

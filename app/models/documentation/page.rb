@@ -3,14 +3,18 @@ module Documentation
 
     validates :title, :presence => true
     validates :position, :presence => true
-    validates :permalink, :presence => true, :uniqueness => {:scope => :parent_id}
+    validates :permalink, :presence => true, :uniqueness => {:scope => [:parent_id, :version_id]}
 
     default_scope -> { order(:position) }
     scope :roots, -> { where(:parent_id => nil) }
+    scope :in_version, -> (version_id) { where(:version_id => version_id) }
 
     parent_options = {:class_name => "Documentation::Page", :foreign_key => 'parent_id'}
     parent_options[:optional] = true if ActiveRecord::VERSION::MAJOR >= 5
     belongs_to :parent, parent_options
+
+    version_options = {:class_name => "Documentation::Version"}
+    belongs_to :version, version_options
 
     before_validation do
       if self.position.blank?
@@ -19,6 +23,7 @@ module Documentation
       end
     end
 
+    before_validation :set_version
     before_validation :set_permalink
     before_save :compile_content
 
@@ -41,13 +46,22 @@ module Documentation
       proposed_permalink = self.title.parameterize
       index = 1
       while self.permalink.blank?
-        if self.class.where(:permalink => proposed_permalink, :parent_id => self.parent_id).exists?
+        if self.class.where(:permalink => proposed_permalink, :parent_id => self.parent_id, :version_id => self.version_id).exists?
           index += 1
           proposed_permalink = self.title.parameterize + "-#{index}"
         else
           self.permalink = proposed_permalink
         end
       end
+    end
+
+    #
+    # Set the version for this page
+    #
+    def set_version
+      return if self.version_id.present?
+      parent_record = self.class.unscoped.where(:id => self.parent_id).first if self.parent_id.present?
+      self.version_id = parent_record&.version_id
     end
 
     #
@@ -181,12 +195,12 @@ module Documentation
     # Find a page by passing a path to the page from the root of the
     # site
     #
-    def self.find_from_path(path_string)
+    def self.find_from_path(version_id, path_string)
       raise ActiveRecord::RecordNotFound, "Couldn't find page without a path" if path_string.blank?
       path_parts = path_string.split('/')
       path = []
       path_parts.each_with_index do |p, i|
-        page = self.where(:parent_id => (path.last ? path.last.id : nil)).find_by_permalink(p)
+        page = self.where(:parent_id => (path.last ? path.last.id : nil), :version_id => version_id).find_by_permalink(p)
         if page
           page.parents = path.dup
           page.parent = path.last
@@ -199,7 +213,7 @@ module Documentation
     end
 
     #
-    # Reorder pgaes
+    # Reorder pages
     #
     def self.reorder(parent, order = [])
       order = order.map(&:to_i)

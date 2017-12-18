@@ -3,8 +3,12 @@ class CreateDocumentationPages < ActiveRecord::Migration
     create_table "documentation_pages" do |t|
       t.string :title, :permalink
       t.text :content, :compiled_content
-      t.integer :parent_id, :position
+      t.integer :parent_id, :position, :version_id
       t.timestamps
     end
+  end
+
+  def down
+    drop_table :documentation_pages
   end
 end

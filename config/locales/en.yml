@@ -8,12 +8,14 @@ en:
         back_to_site: Back to site
       search:
         query_placeholder: Search Documentation...
-        
+      version_form:
+        labels:
+          change_version: Change version
+        manage_versions: Manage versions
   documentation:
-    
     helpers:
       documentation_breadcrumb_for:
-        default_root_link: Home
+        default_root_link: "Documentation (v. %{ordinal})"
       documentation_search_summary:
         text: "Found %{total_results} pages matching your query. Showing results %{start_result} to %{end_result}"
       documentation_search_results:
@@ -21,10 +23,15 @@ en:
       documentation_search_pagination:
         next: Next page
         previous: Previous page
+    notices:
+      no_version: Redirected to lastest documentation version.
+    alerts:
+      no_record: Page not found.
+      access_denied: Access denied.
         
     pages:
       index:
-        welcome_title: Welcome to Documentation
+        welcome_title: Welcome to Documentation %{version_ordinal}
         welcome_text: Choose a page from the menu on the left of the screen to begin.
         developer_tip:
           You can override this page by adding a new view in <code>app/views/documentation/pages/index</code>.
@@ -32,6 +39,15 @@ en:
           Documentation configuration.
         create_root_page: Create new root page
         reorder_root_pages: Re-order root pages
+
+      new:
+        notice: Page created successfully.
+
+      edit:
+        notice: Page has been saved successfully.
+
+      destroy:
+        notice:  Page has been removed successfully.
       
       show:
         view_in_website: View in website
@@ -42,6 +58,7 @@ en:
         edit: Edit page
         reorder: Re-order children
         delete: Delete page
+        confirm_delete: Are you sure you wish to remove this page?
       
       form:
         title_placeholder: Enter a title for this page
@@ -60,3 +77,30 @@ en:
         no_results: "No pages were found matching '%{query}'"
         next_page: Next page
         previous_page: Previous page
+
+    versions:
+
+      index:
+        title: Versions
+        ordinal: Ordinal
+
+      admin_buttons:
+        new: New version
+
+      admin_actions:
+        edit: Edit ordinal
+        delete: Delete version
+        confirm_delete: Are you sure you wish to remove this version and all its pages?
+
+      new:
+        notice: Version created successfully.
+
+      edit:
+        notice: Version has been saved successfully.
+
+      destroy:
+        notice:  Version has been removed successfully.
+
+      form:
+        ordinal_placeholder: Ordinal
+        save: Zapisz

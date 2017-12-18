@@ -25,15 +25,15 @@ module Documentation
         when /\A\^\.\/(.*)/
           # ^./pagename
           # Links to pages on the same level as the current page
-          link = "{{docRoot}}/#{page.parents.map(&:permalink).join('/')}/#{$1}"
+          link = "{{docRoot}}/v/#{page.version.ordinal}/#{page.parents.map(&:permalink).join('/')}/#{$1}"
         when /\A\^\/(.*)/
           # ^/full/path
           # Links to a page frmo the root of the docs
-          link = "{{docRoot}}/#{$1}"
+          link = "{{docRoot}}/v/#{page.version.ordinal}/#{$1}"
         when /\A\^(.*)/
           # ^child/item
           # Links to a child of the current page
-          link = "{{docRoot}}/#{page.full_permalink}/#{$1}"
+          link = "{{docRoot}}/v/#{page.version.ordinal}/#{page.full_permalink}/#{$1}"
         end
       end
       "<a href='#{link}' title='#{title}'>#{content}</a>"
