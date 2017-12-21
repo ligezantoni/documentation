@@ -14,14 +14,20 @@ module Documentation
     # Should we display developer tips in the UI?
     :developer_tips => true,
 
+    # Should we display developer tips in the UI?
+    :markdown_hints => true,
+
     # The authorizer to use
     :authorizer => Documentation::Authorizer,
 
     # The searcher to use
     :searcher => Documentation::Searchers::Simple.new,
 
-    # Application title
-    :app_title => 'Documentation'
+    # Application name
+    :app_name => '',
+
+    # Available locales
+    :available_locales => I18n.available_locales
 }
 
   #

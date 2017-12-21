@@ -4,7 +4,9 @@ def doc(*path)
   File.read(File.join($doc_root, *path))
 end
 
-guide = Documentation::Page.create(:title => "Developers' Guide", :content => doc('developers-guide', 'overview.md'))
+version = Documentation::Version.create(ordinal: '0.0.0')
+
+guide = version.pages.create(:title => "Developers' Guide", :content => doc('developers-guide', 'overview.md'))
 guide.children.create(:title => 'Authorization', :content => doc('developers-guide', 'authorization.md'))
 guide.children.create(:title => 'Search Backends', :content => doc('developers-guide', 'search-backends.md'))
 guide.children.create(:title => 'Customization', :content => doc('developers-guide', 'customization.md'))
@@ -12,4 +14,4 @@ views = guide.children.create(:title => 'Building your own views', :content => d
 views.children.create(:title => 'Accessing Pages', :content => doc('developers-guide', 'building-views', 'accessing-pages.md'))
 views.children.create(:title => 'Helpers', :content => doc('developers-guide', 'building-views', 'helpers.md'))
 
-markdown = Documentation::Page.create(:title => "Using Markdown", :content => doc('markdown', 'overview.md'))
+version.pages.create(:title => "Using Markdown", :content => doc('markdown', 'overview.md'))

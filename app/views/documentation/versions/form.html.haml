@@ -2,7 +2,7 @@
   -#= documentation_breadcrumb_for @version, @page
   = form_for @version, :url => @version.new_record? ? new_version_path : edit_version_path(@version), :html => {:class => 'pageForm'} do |f|
     = error_messages_for @version
-    %p.title= f.text_field :ordinal, :placeholder => t('.ordinal_placeholder')
+    .title= f.text_field :ordinal, :placeholder => t('.ordinal_placeholder')
 
     - if @version.new_record?
       %dl

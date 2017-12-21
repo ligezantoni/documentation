@@ -1,13 +1,17 @@
 %section.welcome
-  %h1= t('.welcome_title', version_ordinal: @version.ordinal)
+  %h1= t('.welcome_title', app_name: Documentation.config.app_name, version_ordinal: @version.ordinal)
   %h2= t('.welcome_text')
 
   - if Documentation.config.developer_tips
     .override
       %p= t('.developer_tip').html_safe
-      
-  %p.new
+
+  - if @version.pages.localized(I18n.locale).empty?
+    .override
+      %p= t('.no_pages').html_safe
+
+  %p.adminButtons
     - if authorizer.can_add_page?(nil)
       = link_to t('.create_root_page'), new_page_path(version_ordinal: @version.ordinal), :class => 'button new'
-    - if authorizer.can_reposition_page?(nil)
+    - if authorizer.can_reposition_page?(nil) && @version.pages.roots.localized(I18n.locale).present?
       = link_to t('.reorder_root_pages'), page_positioning_path, :class => 'button'

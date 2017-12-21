@@ -23,7 +23,7 @@ module Documentation
       authorizer.check! :add_page, @page
 
       parent = @page
-      @page = Page.new(:title => "Untitled Page", :version_id => @version.id)
+      @page = Page.new(:version_id => @version.id, :locale => I18n.locale)
       if @page.parent = parent
         @page.parents = parent.breadcrumb
       end
@@ -61,7 +61,7 @@ module Documentation
 
     def positioning
       authorizer.check! :reposition_page, @page
-      @pages = @page ? @page.children : Page.roots.in_version(@version.id)
+      @pages = @page ? @page.children : Page.roots.in_version(@version.id).localized(I18n.locale)
       if request.post?
         Page.reorder(@page, params[:order])
         render :json => {:status => 'ok'}
@@ -70,14 +70,14 @@ module Documentation
 
     def search
       authorizer.check! :search
-      @result = Documentation::Page.in_version(@version.id).search(params[:query], :page => params[:page].blank? ? 1 : params[:page].to_i, per_page: 2)
+      @result = Documentation::Page.in_version(@version.id).search(params[:query], :page => params[:page].blank? ? 1 : params[:page].to_i) #, per_page: 20)
     end
 
     private
 
     def find_page
       if params[:path]
-        @page = Page.find_from_path(@version.id, params[:path])
+        @page = Page.find_from_path(@version.id, params[:path], locale: I18n.locale)
       end
     end
 

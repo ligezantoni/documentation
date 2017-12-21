@@ -6,10 +6,15 @@
     %thead
       %tr
         %td= t('.ordinal')
+        %td= t('.languages')
         %td
     %tbody
       - @versions.each do |version|
         %tr
           %td= link_to version.ordinal, root_path(version_ordinal: version.ordinal)
+          %td
+            %ul.versionLocales
+              - version.available_locales.each do |locale|
+                %li= link_to t("languages.#{locale}"), root_path(version_ordinal: version.ordinal, locale: locale)
           %td= render 'admin_actions', version: version
   = render 'admin_buttons'

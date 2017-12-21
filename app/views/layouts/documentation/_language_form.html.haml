@@ -1,0 +1,3 @@
+%p.languageForm
+  = label_tag 'languages', t('.labels.change_language')
+  = select_tag 'languages', languages_options(@application_locales, selected: I18n.locale), id: 'language-change'

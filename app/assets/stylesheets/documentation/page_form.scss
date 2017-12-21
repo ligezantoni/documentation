@@ -7,40 +7,83 @@ form.pageForm {
 	  padding:6px;
 	  background:#F5F7FB;
 	}
+
+    select {
+      width: 100%;
+      background: white;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-size: 14px;
+      border: 2px solid #bbc5da;
+      border-radius: 4px;
+      padding: 6px 6px 6px 6px;
+    }
 	
-	p.title {
-		margin-bottom:15px;
-		input { font-size:1.3em; font-weight:normal; padding:10px;}
+	.title {
+      margin-bottom:15px;
+      input { font-size:1.3em; font-weight:normal; padding:10px;}
 	}
 	
-	p.content {
-		textarea {
-			width:100%;
-			min-height:300px;
-			font-size:0.9em;
-			line-height:1.4;
-			padding:10px;
-			font-family:'Consolas', Monaco, 'Courier New', Courier, fixed;
-			resize:none;
-		}
+	.content {
+      textarea {
+        width:100%;
+        min-height:300px;
+        font-size:0.9em;
+        line-height:1.4;
+        padding:10px;
+        font-family:'Consolas', Monaco, 'Courier New', Courier, fixed;
+        resize:none;
+      }
 	}
-	
+
+    .markdownHints {
+      padding: 30px;
+      margin-top: 15px;
+      background: #E2E7F1;
+      h1 {
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+      p {
+        display: inline-block;
+        min-width: 45%;
+      }
+    }
+
 	dl {
-		margin:15px 0;
-		dt { width:120px; float:left; color:#999;padding-top:6px;}
-		dd { margin-left:160px; }
-		dd input { width:100%; font-size:1.1em;}
-		dd.padded { padding-top: 6px; }
+      margin:15px 0;
+      dt { width:120px; float:left; color:#999;padding-top:6px;}
+      dd { margin-left:160px; }
+      dd input { width:100%; font-size:1.1em;}
+      dd.padded { padding-top: 6px; }
 	}
-	
+
 	p.submit {
 		text-align:right;
 	}
+
+    .errorExplanation {
+      background:#fdffe0;
+      //width:80%;
+      margin:15px auto 30px auto;
+      font-size:1.1em;
+      line-height:1.7;
+      padding:15px 10px;
+      border:1px solid #F6744F;
+      color:#727457;
+      h2 { font-weight: bold; }
+    }
+
+    .field_with_errors {
+      input {
+        border-bottom: 1px solid #F6744F;
+      }
+    }
 }
 
+
 p.versionForm {
-  border-top: 1px dashed #ddd;
-  padding: 15px;
+  border-bottom: 1px dashed #ddd;
+  padding: 0 15px 15px 15px;
   margin-top: 15px;
 
   select {
@@ -58,5 +101,21 @@ p.versionForm {
     a {
       margin: 10px 0;
     }
+  }
+}
+
+p.languageForm {
+  padding: 0 15px 15px 15px;
+  margin-top: 15px;
+
+  select {
+    width: 100%;
+    background: white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-size: 14px;
+    border: 2px solid #bbc5da;
+    border-radius: 4px;
+    padding: 6px 6px 6px 6px;
+    margin-top: 5px;
   }
 }

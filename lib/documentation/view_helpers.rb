@@ -43,11 +43,12 @@ module Documentation
     # Return a default navigation tree for the given page
     #
     def documentation_navigation_tree_for(version, page, options = {})
+      locale = options[:locale] || I18n.locale
       active_page_type = nil
       items = String.new.tap do |s|
         if page.is_a?(::Documentation::Page)
 
-          pages = page.navigation.select { |p,c| documentation_authorizer.can_view_page?(p) && p.version_id == version.id }
+          pages = page.navigation.select { |p,c| documentation_authorizer.can_view_page?(p) && p.version_id == version.id && p.locale.to_sym == locale }
 
           pages.each do |p, children|
             s << "<li>"
@@ -64,7 +65,7 @@ module Documentation
             s << "</li>"
           end
         else
-          ::Documentation::Page.roots.in_version(version.id).select { |p| documentation_authorizer.can_view_page?(p) }.each do |page|
+          ::Documentation::Page.roots.in_version(version.id).localized(locale).select { |p| documentation_authorizer.can_view_page?(p) }.each do |page|
             s << "<li><a href='#{documentation_doc_root}/v/#{version.ordinal}/#{page.full_permalink}'>#{page.title}</a></li>"
           end
         end
@@ -188,10 +189,18 @@ module Documentation
     end
 
     #
-    #
+    # Returns all versions as options for select
     #
     def documentation_base_version_options
-      options_for_select(Documentation::Version.ordered.map(&:ordinal), Documentation::Version)
+      options_for_select(Documentation::Version.ordered.map(&:ordinal))
+    end
+
+    #
+    # Returns all available languages as options for select
+    #
+    def languages_options(app_locales, options = {})
+      selected = options[:selected]
+      options_for_select(app_locales.map { |locale| [t("languages.#{locale}"), locale] }, selected)
     end
 
   end

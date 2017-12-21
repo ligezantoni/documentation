@@ -1,3 +1,3 @@
 %header
-  %h1= link_to (Documentation.config.app_title || t('.title')), unspecified_root_path
-  %p.back= link_to "&larr; #{t('.back_to_site')}".html_safe, "/", :class => ''
+  %h1= link_to t('.title', app_name: Documentation.config.app_name), unspecified_root_path
+  %p.back= link_to "&larr; #{t('.back_to_site', app_name: Documentation.config.app_name)}".html_safe, "/", :class => ''

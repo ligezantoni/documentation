@@ -1,10 +1,47 @@
 en:
+  activerecord:
+    attributes:
+      documentation/page:
+        title: Title
+        permalink: Permalink
+        position: Position
+      documentation/version:
+        ordinal: Ordinal
+        based_on: Based on
+        base_locale: Base structure on
+        locale_added: Locale to add
+    errors:
+      template:
+        header: "Errors prevented form from saving:"
+        body: ''
+      models:
+        documentation/page:
+          attributes:
+            title:
+              blank: can't be blank
+            position:
+              blank: can't be blank
+            permalink:
+              blank: can't be set without a title
+              taken: already taken
+        documentation/version:
+          attributes:
+            ordinal:
+              blank: can't be blank
+            base_locale:
+              blank: can't be blank
+            locale_added:
+              blank: can't be blank
+              in_available: must be language existing in system
+  languages:
+    en: 'English'
+    pl: 'Polish'
   layouts:
     documentation:
       application:
         title: Documentation
       header:
-        title: Documentation
+        title: "Documentation %{app_name}"
         back_to_site: Back to site
       search:
         query_placeholder: Search Documentation...
@@ -12,6 +49,9 @@ en:
         labels:
           change_version: Change version
         manage_versions: Manage versions
+      language_form:
+        labels:
+          change_language: Change language
   documentation:
     helpers:
       documentation_breadcrumb_for:
@@ -28,15 +68,19 @@ en:
     alerts:
       no_record: Page not found.
       access_denied: Access denied.
-        
+
     pages:
       index:
-        welcome_title: Welcome to Documentation %{version_ordinal}
-        welcome_text: Choose a page from the menu on the left of the screen to begin.
+        welcome_title: "Documentation %{app_name} v. %{version_ordinal}"
+        welcome_text: Choose a page from the menu on the left of the screen to begin
         developer_tip:
           You can override this page by adding a new view in <code>app/views/documentation/pages/index</code>.
           Alternatively, you can disable this message by setting <code>developer_tips</code> to false in the
           Documentation configuration.
+        no_pages:
+          We're sorry, this version of documentation doesn't exist in language selected. <br/>
+          Make sure you've chosen correct <b>version</b> and <b>language</b> from the menu on the left. <br/><br/>
+          You can contact page's administrator to fix that. If you have proper permissions you can add pages below.
         create_root_page: Create new root page
         reorder_root_pages: Re-order root pages
 
@@ -66,12 +110,41 @@ en:
         permalink_placeholder: Automatically generated if left blank
         add_screenshot: Add Screenshot
         save: Save Page
-      
+
+      markdown_hints:
+        title: Markdown cheatsheet
+        column_1:
+          <code>
+          &#35; Heading H1<br/>
+          &#35;&#35; Heading H2<br/>
+          &#35;&#35;&#35; Heading H3<br/><br/>
+          Italics&#58; &#42;asterisks&#42; or &#95;underscores&#95;.<br/>
+          Bold&#58; &#42;&#42;asterisks&#42;&#42; or &#95;&#95;underscores&#95;&#95;.<br/>
+          Inline `code` has `back-ticks around` it.<br/><br/>
+          1. First ordered list item<br/>
+          2. Another item<br/><br/>
+          &#42; Unordered list can use asterisks<br/>
+          &#45; Or minuses<br/>
+          &#43; Or pluses
+          </code>
+        column_2:
+          <code>
+          [Link for sub page](^permalink)<br/>
+          [Link for same level page](^./permalink)<br/>
+          [Root link](^/permalink)<br/><br/>
+          [External link](https://www.google.com)<br/><br/>
+          Horizontal rule&#58;<br/>
+          &#45;&#45;&#45; or &#42;&#42;&#42; or &#95;&#95;&#95;<br/><br/>
+          Recommendation&#58; or Warning&#58; &#45; text boxes.<br/><br/>
+          Images can be added with button below.<br/><br/>
+          Full guide available at&#58; <a href='https://guides.github.com/features/mastering-markdown/'>github page</a>.
+          </code>
+
       positioning:
         reorder_root_pages_title: Re-order root pages
         back_to_page: Back to page
         back_to_homepage: Back to homepage
-        
+
       search:
         title: "Search results for '%{query}'"
         no_results: "No pages were found matching '%{query}'"
@@ -88,6 +161,7 @@ en:
         new: New version
 
       admin_actions:
+        new_language: New language
         edit: Edit ordinal
         delete: Delete version
         confirm_delete: Are you sure you wish to remove this version and all its pages?
@@ -103,4 +177,12 @@ en:
 
       form:
         ordinal_placeholder: Ordinal
-        save: Zapisz
+        save: Save
+
+    version_locales:
+
+      new:
+        notice: Version pages structure created for language.
+
+      form:
+        save: Save

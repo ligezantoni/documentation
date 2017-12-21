@@ -4,8 +4,10 @@
   = documentation_breadcrumb_for @version, @page
   = form_for @page, :url => @page.new_record? ? new_page_path(@page.parent ? @page.parent.full_permalink : nil, version_ordinal: @version.ordinal) : edit_page_path(@page.full_permalink, version_ordinal: @version.ordinal), :html => {:class => 'pageForm'} do |f|
     = error_messages_for @page
-    %p.title= f.text_field :title, :placeholder => t('.title_placeholder')
-    %p.content~ f.text_area :content, :placeholder => t('.content_placeholder')
+    .title= f.text_field :title, :placeholder => t('.title_placeholder')
+    .content~ f.text_area :content, :placeholder => t('.content_placeholder')
+    = render 'markdown_hints'
+    .clearfix
     %dl
       %dt= f.label :permalink
       %dd= f.text_field :permalink, :placeholder => t('.permalink_placeholder')

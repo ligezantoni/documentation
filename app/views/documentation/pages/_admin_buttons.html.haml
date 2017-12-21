@@ -8,11 +8,11 @@
     - if canAdd
       = link_to t('.new'), new_page_path(@page.full_permalink, version_ordinal: @version.ordinal), :class => 'button new'
 
+    - if canReposition && @page.has_children?
+      = link_to t('.reorder'), page_positioning_path(@page.try(:full_permalink), version_ordinal: @version.ordinal), :class => 'button edit'
+
     - if canEdit
       = link_to t('.edit'), edit_page_path(@page.full_permalink, version_ordinal: @version.ordinal), :class => 'button edit'
-
-    - if canReposition
-      = link_to t('.reorder'), page_positioning_path(@page.parents[-1].try(:full_permalink), version_ordinal: @version.ordinal), :class => 'button edit'
 
     - if canDelete
       = link_to t('.delete'), delete_page_path(@page.full_permalink, version_ordinal: @version.ordinal), :class => 'button delete', :method => :delete, :data => {:confirm => t('.confirm_delete')}

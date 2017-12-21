@@ -68,6 +68,8 @@ nav.pages {
   div.inner {
     padding:15px 0;
     ul {
+      border-bottom: 1px dashed #ddd;
+      padding: 0 0 15px 0;
       li {
         a {
           text-decoration:none;
@@ -247,6 +249,9 @@ section.welcome {
     color:#727457;
     code { font-weight:bold;  }
   }
+  .adminButtons {
+    margin-top: 15px;
+  }
 }
 
 //
@@ -333,6 +338,18 @@ section.versionsList {
     th, td {
       padding: 15px;
       border-top: 1px dashed #ddd;
+      ul.versionLocales {
+        list-style-type: none;
+        //margin: 0;
+        //padding: 0;
+        //overflow: hidden;
+        //background-color: #333333;
+
+        li {
+          float: left;
+          padding: 0 10px;
+        }
+      }
     }
   }
 

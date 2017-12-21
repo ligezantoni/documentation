@@ -3,11 +3,12 @@ module Documentation
 
     validates :title, :presence => true
     validates :position, :presence => true
-    validates :permalink, :presence => true, :uniqueness => {:scope => [:parent_id, :version_id]}
+    validates :permalink, :presence => true, :uniqueness => {:scope => [:parent_id, :version_id, :locale]}
 
     default_scope -> { order(:position) }
     scope :roots, -> { where(:parent_id => nil) }
     scope :in_version, -> (version_id) { where(:version_id => version_id) }
+    scope :localized, -> (locale) { where(:locale => locale) }
 
     parent_options = {:class_name => "Documentation::Page", :foreign_key => 'parent_id'}
     parent_options[:optional] = true if ActiveRecord::VERSION::MAJOR >= 5
@@ -43,6 +44,7 @@ module Documentation
     # Set the permalink for this page
     #
     def set_permalink
+      return if self.title.blank?
       proposed_permalink = self.title.parameterize
       index = 1
       while self.permalink.blank?
@@ -132,14 +134,14 @@ module Documentation
       if has_children?
         root_parent = parents[-1]
         if root_parent.nil?
-          pages = self.class.roots
+          pages = self.class.roots.localized(I18n.locale)
         else
           pages = (root_parent || self).children
         end
       else
         root_parent = parents[-2] || parents[-1]
         if root_parent.nil? || (root_parent.parent.nil? && parents.size <= 1)
-          pages = self.class.roots
+          pages = self.class.roots.localized(I18n.locale)
         else
           pages = (root_parent || self).children
         end
@@ -195,12 +197,13 @@ module Documentation
     # Find a page by passing a path to the page from the root of the
     # site
     #
-    def self.find_from_path(version_id, path_string)
+    def self.find_from_path(version_id, path_string, options = {})
       raise ActiveRecord::RecordNotFound, "Couldn't find page without a path" if path_string.blank?
+      locale = options[:locale] || I18n.locale
       path_parts = path_string.split('/')
       path = []
       path_parts.each_with_index do |p, i|
-        page = self.where(:parent_id => (path.last ? path.last.id : nil), :version_id => version_id).find_by_permalink(p)
+        page = self.where(:parent_id => (path.last ? path.last.id : nil), :version_id => version_id, :locale => locale).find_by_permalink(p)
         if page
           page.parents = path.dup
           page.parent = path.last
@@ -222,6 +225,21 @@ module Documentation
         command = self.find_by_id!(id)
         command.position = index + 1
         command.save
+      end
+    end
+
+    #
+    # Duplicates page for other versions
+    #
+    def self.duplicate(base_page, options = {})
+      duplicate_page = base_page.dup
+      duplicate_page.assign_attributes(options)
+      duplicate_page.save
+
+      if base_page.has_children?
+        base_page.children.each do |child_page|
+          duplicate(child_page, options.tap { |opts| opts[:parent] = duplicate_page})
+        end
       end
     end
 

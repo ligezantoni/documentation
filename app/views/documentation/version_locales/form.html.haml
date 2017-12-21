@@ -1,0 +1,12 @@
+%section.content.edit-article
+  = form_for @version, :url => new_version_locale_path(@version), :html => {:class => 'pageForm'} do |f|
+    = error_messages_for @version
+    %dl
+      %dt= f.label :base_locale
+      %dd= f.select :base_locale, languages_options(@version.available_locales)
+    %dl
+      %dt= f.label :locale_added
+      %dd= f.select :locale_added, languages_options(@application_locales - @version.available_locales.map(&:to_sym))
+
+    %p.submit
+      = f.submit t('.save'), :class => 'button'

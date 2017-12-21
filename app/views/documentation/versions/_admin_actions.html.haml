@@ -1,8 +1,12 @@
+- canAdd = authorizer.can_add_version?
 - canEdit = authorizer.can_edit_version?(version)
 - canDelete = authorizer.can_delete_version?(version)
 
 - if canEdit || canDelete
   %p.adminActions
+
+    - if canAdd && (@application_locales - version.available_locales.map(&:to_sym)).present?
+      = link_to t('.new_language'), new_version_locale_path(version), :class => 'button new'
 
     - if canEdit
       = link_to t('.edit'), edit_version_path(version), :class => 'button edit'
