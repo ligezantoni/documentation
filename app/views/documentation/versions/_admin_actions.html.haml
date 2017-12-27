@@ -5,7 +5,7 @@
 - if canEdit || canDelete
   %p.adminActions
 
-    - if canAdd && (@application_locales - version.available_locales.map(&:to_sym)).present?
+    - if canAdd && version.pages.any? && (@application_locales - version.available_locales.map(&:to_sym)).present?
       = link_to t('.new_language'), new_version_locale_path(version), :class => 'button new'
 
     - if canEdit

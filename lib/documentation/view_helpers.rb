@@ -184,15 +184,8 @@ module Documentation
     #
     # Returns all versions as options for select
     #
-    def documentation_version_options(selected_value)
+    def documentation_version_options(selected_value = nil)
       options_for_select(Documentation::Version.ordered.map(&:ordinal), selected_value)
-    end
-
-    #
-    # Returns all versions as options for select
-    #
-    def documentation_base_version_options
-      options_for_select(Documentation::Version.ordered.map(&:ordinal))
     end
 
     #

@@ -156,6 +156,7 @@ en:
       index:
         title: Versions
         ordinal: Ordinal
+        none: none versions available
 
       admin_buttons:
         new: New version
@@ -186,3 +187,4 @@ en:
 
       form:
         save: Save
+q

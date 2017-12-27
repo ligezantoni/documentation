@@ -1,3 +1,4 @@
 %p.languageForm
   = label_tag 'languages', t('.labels.change_language')
-  = select_tag 'languages', languages_options(@application_locales, selected: I18n.locale), id: 'language-change'
+  = select_tag 'languages', languages_options(@application_locales, selected: I18n.locale), id: 'language-change',
+    data: { path: set_language_path(locale: 'locale-placeholder') }

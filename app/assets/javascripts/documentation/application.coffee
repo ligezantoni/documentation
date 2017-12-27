@@ -78,16 +78,13 @@ $ ->
           false
 
   $('#version-change').on 'change', ->
-    path = window.location.pathname
-    path_elements = path.split('/')
-    path_elements[3] = $(this).val()
-    path = path_elements.join('/')
+    path = $(this).attr('data-path')
+    path = path.replace('ordinal-placeholder', $(this).val())
     if path
       window.location.pathname = path
 
   $('#language-change').on 'change', ->
-    path = window.location.pathname
-    path_elements = path.split('/')
-    path = "#{path_elements[1]}/set_language/#{$(this).val()}"
+    path = $(this).attr('data-path')
+    path = path.replace('locale-placeholder', $(this).val())
     if path
       window.location.pathname = path

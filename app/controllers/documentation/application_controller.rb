@@ -11,8 +11,8 @@ module Documentation
       redirect_back
     end
 
-    before_filter :set_version
     before_filter :set_locale
+    before_filter :set_version
     before_filter do
       unless authorizer.can_use_ui?
         render :template => 'documentation/shared/not_found', :layout => false
@@ -25,8 +25,8 @@ module Documentation
       return if params[:version_ordinal] == 'versions'
       @version = Documentation::Version.find_by(ordinal: params[:version_ordinal])
       if @version.blank?
-        @version = Documentation::Version.last
-        redirect_to root_path(version_ordinal: @version&.ordinal), :notice => t('documentation.notices.no_version')
+        @latest_version = Documentation::Version.last
+        render :template => 'documentation/shared/choose_version'
       end
     end
 

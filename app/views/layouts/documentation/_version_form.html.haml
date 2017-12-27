@@ -2,7 +2,8 @@
 
 %p.versionForm
   = label_tag 'versions', t('.labels.change_version')
-  = select_tag 'versions', documentation_version_options(@version.ordinal), id: 'version-change'
+  = select_tag 'versions', documentation_version_options(@version.ordinal), id: 'version-change',
+    data: { path: root_path(version_ordinal: 'ordinal-placeholder') }
 
   - if canAdd
     %span.adminButtons
