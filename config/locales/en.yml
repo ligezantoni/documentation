@@ -156,7 +156,7 @@ en:
       index:
         title: Versions
         ordinal: Ordinal
-        none: none versions available
+        none: no versions available
 
       admin_buttons:
         new: New version
@@ -187,3 +187,12 @@ en:
 
       form:
         save: Save
+
+    shared:
+      choose_version:
+        title: "%{app_name} Documentation"
+        content:
+          No version was found at the path you have entered. Please ensure you have entered the correct URL otherwise contact the site admin.<br/><br/>
+          You can go to the latest available version below or, with proper permissions, you can add a new one.
+        latest_link: Latest version
+        label: Choose version

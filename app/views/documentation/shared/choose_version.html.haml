@@ -2,10 +2,14 @@
   %h1= t('.title', app_name: Documentation.config.app_name)
 
   %section.chooseVersion
-    %p.versionForm
-      = label_tag 'versions', t('.label')
-      = select_tag 'versions', documentation_version_options, include_blank: true, id: 'version-change',
-        data: { path: root_path(version_ordinal: 'ordinal-placeholder') }
+    - if @latest_version.present?
+      %p.versionForm
+        = label_tag 'versions', t('.label')
+        = select_tag 'versions', documentation_version_options, include_blank: true, id: 'version-change',
+          data: { path: root_path(version_ordinal: 'ordinal-placeholder') }
+    - else
+      %h2
+        = t('documentation.versions.index.none')
 
   .override
     %p= t('.content').html_safe
