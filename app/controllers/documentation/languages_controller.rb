@@ -4,7 +4,7 @@ module Documentation
     skip_before_filter :set_version
 
     def set_language
-      I18n.locale = params[:locale]
+      session[:locale] = params[:locale]
       redirect_to :back
     end
 

@@ -32,8 +32,8 @@ module Documentation
 
     def set_locale
       @application_locales = I18n.available_locales & Documentation.config.available_locales
-      return unless params[:locale].present?
-      I18n.locale = params[:locale] if params[:locale].to_sym.in?(@application_locales)
+      session[:locale] = params[:locale] if params[:locale].present? && params[:locale].to_sym.in?(@application_locales)
+      I18n.locale = session[:locale] || I18n.default_locale
     end
 
     def authorizer
