@@ -4,7 +4,11 @@ module Documentation
     skip_before_filter :set_version
 
     def set_language
-      session[:locale] = params[:locale]
+      if params[:locale].present? && params[:locale].to_sym.in?(@application_locales)
+        session[:locale] = params[:locale]
+      else
+        flash[:alert] = t('documentation.alerts.no_lang')
+      end
       redirect_to :back
     end
 

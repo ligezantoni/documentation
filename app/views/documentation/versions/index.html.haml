@@ -13,10 +13,7 @@
         - @versions.each do |version|
           %tr
             %td= link_to version.ordinal, root_path(version_ordinal: version.ordinal)
-            %td
-              %ul.versionLocales
-                - version.available_locales.each do |locale|
-                  %li= link_to t("languages.#{locale}"), root_path(version_ordinal: version.ordinal, locale: locale)
+            %td= version.available_locales.map { |locale| t("languages.#{locale}") }.join(', ')
             %td= render 'admin_actions', version: version
       - else
         %tr

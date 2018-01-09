@@ -19,4 +19,4 @@
     = link_to t('.latest_link'), root_path(version_ordinal: @latest_version&.ordinal), :class => 'button preview'
 
   - if authorizer.can_add_version?
-    = link_to t('.manage_versions'), versions_path, :class => 'button edit'
+    = link_to t('layouts.documentation.version_form.manage_versions'), versions_path, :class => 'button edit'
