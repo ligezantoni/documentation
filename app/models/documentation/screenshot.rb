@@ -10,5 +10,7 @@ module Documentation
       true
     end
 
+    has_one :upload, lambda { select { [:id, :token, :digest, :parent_id, :parent_type, :file_name, :file_type] }.where(:role => :upload) }, :class_name => 'Nifty::Attachments::Attachment', :as => :parent
+
   end
 end
