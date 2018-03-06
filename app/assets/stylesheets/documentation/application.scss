@@ -375,6 +375,64 @@ section.versionsList {
   }
 }
 
+p.screenshotsNav {
+  border-bottom: 1px dashed #ddd;
+  padding: 0 15px 15px 15px;
+  margin-top: 15px;
+
+  .adminButtons {
+    a {
+      margin: 10px 0;
+    }
+  }
+}
+
+section.screenshotsList {
+
+  margin:25px 35px 35px 35px;
+
+  h1 {
+    font-size:1.6em;
+    font-weight:300;
+    margin:20px 0;
+    border-bottom:1px solid #aecdda;
+    padding-bottom:2px; color:#35A4D4;
+  }
+
+  h2 {
+    line-height: 24px;
+  }
+
+  table {
+    margin: 20px auto;
+    border-bottom: 1px dashed #ddd;
+    width: 90%;
+    th, td {
+      padding: 15px;
+      border-top: 1px dashed #ddd;
+    }
+  }
+
+  .untapped_info {
+    color: #F6744F;
+  }
+
+  p.adminActions {
+    text-align: right;
+  }
+
+  .thumbnail {
+    max-height: 50px;
+  }
+
+  .untapped {
+    background-color: #fcd8cf;
+    color: #748098;
+  }
+
+
+}
+
 .clearfix {
   clear: both;
 }

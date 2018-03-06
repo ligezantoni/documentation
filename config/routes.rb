@@ -14,6 +14,8 @@ Documentation::Engine.routes.draw do
   match '/versions/edit/:id', :to => 'versions#edit', :as => 'edit_version', :via => [:get, :patch]
   match '/versions/delete/:id', :to => 'versions#destroy', :as => 'delete_version', :via => [:delete]
   match '/versions', :to => 'versions#index', :as => 'versions', :via => [:get]
+  match '/screenshots/delete/:id', :to => 'screenshots#destroy', :as => 'delete_screenshot', :via => [:delete]
+  match '/screenshots', :to => 'screenshots#index', :as => 'screenshots', :via => [:get]
   get 'set_language/:locale', to: 'languages#set_language', as: 'set_language'
   root :to => 'pages#index', :as => 'unspecified_root'
 end

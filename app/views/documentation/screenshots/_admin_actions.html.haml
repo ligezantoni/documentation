@@ -1,0 +1,7 @@
+- canDelete = authorizer.can_delete_screenshot?(screenshot)
+
+- if canDelete
+  %p.adminActions
+
+    - if canDelete
+      = link_to t('.delete'), delete_screenshot_path(screenshot), :class => 'button delete', :method => :delete, :data => {:confirm => t('.confirm_delete')}

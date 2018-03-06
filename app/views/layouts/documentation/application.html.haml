@@ -15,7 +15,14 @@
           = render 'layouts/documentation/search'
           = documentation_navigation_tree_for(@version, @page)
 
+
           = render 'layouts/documentation/version_form'
+
+        - if request['controller'] != 'documentation/screenshots'
+          %p.screenshotsNav
+            - if authorizer.can_manage_screenshot?
+              %span.adminButtons
+                = link_to t('.manage_screenshots'), screenshots_path, :class => 'button edit'
         = render 'layouts/documentation/language_form'
     %section.content
       .inner  

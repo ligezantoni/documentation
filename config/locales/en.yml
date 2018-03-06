@@ -43,6 +43,7 @@ en:
     documentation:
       application:
         title: Documentation
+        manage_screenshots: Manage screenshots
       header:
         title: "Documentation %{app_name}"
         back_to_site: Back to site
@@ -140,7 +141,7 @@ en:
           Horizontal rule&#58;<br/>
           &#45;&#45;&#45; or &#42;&#42;&#42; or &#95;&#95;&#95;<br/><br/>
           Recommendation&#58; or Warning&#58; &#45; text boxes.<br/><br/>
-          Images can be added with button below.<br/><br/>
+          Images can be added with button below </br> or using saved image with format&#58; ![image_name*centre](path_to_image).<br/><br/>
           Full guide available at&#58; <a href='https://guides.github.com/features/mastering-markdown/'>github page</a>.
           </code>
 
@@ -183,6 +184,23 @@ en:
       form:
         ordinal_placeholder: Ordinal
         save: Save
+
+    screenshots:
+
+      index:
+        title: Screenshots
+        embed_instructions_html: "To use a screenshot on a page, paste its path in following markdown format: <b>![</b><i>title</i><b>*centre](</b><i>path</i><b>)</b>"
+        untapped_info: Screenshots marked with red background aren't used on any page.
+        preview: Preview
+        path: Path
+        none: no screenshots available
+
+      admin_actions:
+        delete: Delete screenshot
+        confirm_delete: Are you sure you wish to remove this screenshot?
+
+      destroy:
+        notice:  Screenshot has been removed successfully.
 
     version_locales:
 

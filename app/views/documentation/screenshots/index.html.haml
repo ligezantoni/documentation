@@ -1,0 +1,23 @@
+- canAdd = authorizer.can_add_version?
+
+%section.screenshotsList
+  %h1= t('.title')
+  %h2
+    = t('.embed_instructions_html')
+    .untapped_info= t('.untapped_info')
+  %table
+    %thead
+      %tr
+        %td= t('.preview')
+        %td= t('.path')
+        %td
+    %tbody
+      - if @screenshots.any?
+        - @screenshots.each do |screenshot|
+          %tr{ :class => "#{'untapped' if screenshot.untapped?}"}
+            %td= image_tag(screenshot.upload.path, class: 'thumbnail')
+            %td= screenshot.upload.path
+            %td= render 'admin_actions', screenshot: screenshot
+      - else
+        %tr
+          %td{ colspan: 3 }= t('.none')

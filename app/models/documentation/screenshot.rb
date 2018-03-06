@@ -12,5 +12,9 @@ module Documentation
 
     has_one :upload, lambda { select { [:id, :token, :digest, :parent_id, :parent_type, :file_name, :file_type] }.where(:role => :upload) }, :class_name => 'Nifty::Attachments::Attachment', :as => :parent
 
+    def untapped?
+      @embedded ||= !Page.where('content LIKE ?', "%#{upload.path}%").any?
+    end
+
   end
 end
