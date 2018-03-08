@@ -1,6 +1,8 @@
 module Documentation
   class Page < ActiveRecord::Base
 
+    delegate :ordinal, to: :version, prefix: true
+
     validates :title, :presence => true
     validates :position, :presence => true
     validates :permalink, :presence => true, :uniqueness => {:scope => [:parent_id, :version_id, :locale]}
@@ -181,6 +183,13 @@ module Documentation
       if searcher = Documentation.config.searcher
         searcher.delete(self)
       end
+    end
+
+    #
+    # Does this page have a parent?
+    #
+    def root?
+      parent_id.nil?
     end
 
     #
