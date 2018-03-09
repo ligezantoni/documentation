@@ -4,14 +4,14 @@ namespace :documentation do
     require File.expand_path('../../../db/seeds', __FILE__)
   end
 
-  task :extract_docs => :environment do
+  task :backup_extract => :environment do
     require File.expand_path('../../../db/backup', __FILE__)
 
     backup_service = Documentation::Backup.new
     backup_service.extract!
   end
 
-  task :insert_docs => :environment do
+  task :backup_insert => :environment do
     require File.expand_path('../../../db/backup', __FILE__)
 
     backup_service = Documentation::Backup.new
