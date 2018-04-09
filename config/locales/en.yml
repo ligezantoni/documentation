@@ -130,7 +130,8 @@ en:
           2. Another item<br/><br/>
           &#42; Unordered list can use asterisks<br/>
           &#45; Or minuses<br/>
-          &#43; Or pluses
+          &#43; Or pluses<br/><br/>
+          &lt;center&gt;Centered text&lt;&#47;center&gt;
           </code>
         column_2:
           <code>
