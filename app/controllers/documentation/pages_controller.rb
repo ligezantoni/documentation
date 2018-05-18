@@ -41,7 +41,11 @@ module Documentation
     def destroy
       authorizer.check! :delete_page, @page
       @page.destroy
-      redirect_to @page.parent ? page_path(@page.parent.full_permalink, version_ordinal: @version.ordinal) : root_path, :notice => t('.notice')
+      if params[:redirect_to].present?
+        redirect_to params[:redirect_to].to_sym, :notice => t('.notice')
+      else
+        redirect_to @page.parent ? page_path(@page.parent.full_permalink, version_ordinal: @version.ordinal) : root_path, :notice => t('.notice')
+      end
     end
 
     def screenshot

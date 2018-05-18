@@ -1,3 +1,5 @@
+- canDelete = authorizer.can_delete_page?(@page)
+
 - if @page
   - @page_title = @page.breadcrumb.reverse.map(&:title).join(" - ")
   = documentation_breadcrumb_for @version, @page
@@ -14,7 +16,13 @@
         %li
           = child.title
           = hidden_field_tag 'order[]', child.id
-  
+          - if canDelete
+            .inlineActions
+              = link_to t('.delete'), delete_page_path(child.full_permalink, version_ordinal: @version.ordinal, redirect_to: :back),
+                :class => 'button delete', :method => :delete, :data => {:confirm => t('.confirm_delete')}
+            .clearfix
+
+
   %p.adminButtons
     - if @page
       = link_to t('.back_to_page'), page_path(@page.full_permalink, version_ordinal: @version.ordinal), :class => 'button edit'

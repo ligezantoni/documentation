@@ -150,6 +150,8 @@ en:
         reorder_root_pages_title: Re-order root pages
         back_to_page: Back to page
         back_to_homepage: Back to homepage
+        delete: Delete child page
+        confirm_delete: Are you sure you wish to remove this child page?
 
       search:
         title: "Search results for '%{query}'"
